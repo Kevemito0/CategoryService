@@ -19,8 +19,14 @@ public class CategoryService {
     public Category createCategory(Category category) {
         return categoryRepository.save(category);
     }
-    public Optional<Category> getCategoryById(Long id) {
-        return categoryRepository.findById(id);
-    }
+    public Optional<Category> getCategoryById(Long id) throws Exception {
+        Optional<Category> category = categoryRepository.findById(id);
+        if(category.isPresent()) {
+            return categoryRepository.findById(id);
+        }
+        else
+            throw new Exception("Category not found");
 
+    }
+    public Boolean categoryExist(Long id) {return categoryRepository.existsById(id);}
 }
